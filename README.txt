@@ -11,7 +11,12 @@
       InstalledDir: /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
 
   . Build instructions:
-
        g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/LoadBalancer.d" -MT"src/LoadBalancer.o" -o "src/LoadBalancer.o" "../src/LoadBalancer.cpp"
+       g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/Provider.d" -MT"src/Provider.o" -o "src/Provider.o" "../src/Provider.cpp"
+       g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/test.d" -MT"src/test.o" -o "src/test.o" "../src/test.cpp"
+       g++  -o "test"  ./src/LoadBalancer.o ./src/Provider.o ./src/test.o   
 
-
+    Run instructions:
+        ./Debug/test > output.txt
+        
+    

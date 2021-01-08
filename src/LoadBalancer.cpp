@@ -7,8 +7,8 @@ namespace test
 {
 
 LoadBalancer::LoadBalancer(int maxAllowedProviders,
-						   int maxRequestsPerProvider,
-						   InvocationMethodType method )
+                                       int maxRequestsPerProvider,
+                                       InvocationMethodType method )
 : _maxAllowedProviders ( maxAllowedProviders )
 , _maxRequestsPerProvider ( maxRequestsPerProvider )
 , _invocationMethod(method)
@@ -37,7 +37,7 @@ void LoadBalancer::RegisterNewProvider ( std::shared_ptr<test::Provider> provide
          }
          else
          {
-        	 ProviderStructure st = { provider, true , 0, 0 };
+               ProviderStructure st = { provider, true , 0, 0 };
              _mProvider [provider->GetId()] = st;
          }
      }
@@ -76,39 +76,39 @@ std::string LoadBalancer::Get()
 
     while ( not bFound )
     {
-		if ( _invocationMethod == RANDOM )
-		{
-			auto random = rand() % ( _mProvider.size());
-			auto it = _mProvider.begin();
-			std::advance(it, random);
-			if ( IsProviderValidForInvocation ( it->second.provider->Get() ) )
-			{
-				bFound = true;
-				itFound = it;
-			}
-		}
-		else
-		{
-			// ROUND_ROBIN invocation
-			if ( _bRoundRobinInit == false )
-			{
-				_itRoundRobin = _mProvider.begin();
-				_bRoundRobinInit = true;
-			}
-			else
-			{
-				++_itRoundRobin;
-				if ( _itRoundRobin == _mProvider.end() )
-				{
-					_itRoundRobin = _mProvider.begin();
-				}
-			}
-			if ( IsProviderValidForInvocation ( _itRoundRobin->second.provider->Get() ) )
-			{
-				bFound = true;
-				itFound = _itRoundRobin;
-			}
-		}
+            if ( _invocationMethod == RANDOM )
+            {
+                  auto random = rand() % ( _mProvider.size());
+                  auto it = _mProvider.begin();
+                  std::advance(it, random);
+                  if ( IsProviderValidForInvocation ( it->second.provider->Get() ) )
+                  {
+                        bFound = true;
+                        itFound = it;
+                  }
+            }
+            else
+            {
+                  // ROUND_ROBIN invocation
+                  if ( _bRoundRobinInit == false )
+                  {
+                        _itRoundRobin = _mProvider.begin();
+                        _bRoundRobinInit = true;
+                  }
+                  else
+                  {
+                        ++_itRoundRobin;
+                        if ( _itRoundRobin == _mProvider.end() )
+                        {
+                              _itRoundRobin = _mProvider.begin();
+                        }
+                  }
+                  if ( IsProviderValidForInvocation ( _itRoundRobin->second.provider->Get() ) )
+                  {
+                        bFound = true;
+                        itFound = _itRoundRobin;
+                  }
+            }
     }
 
     itFound->second.nbRequests++;
@@ -117,77 +117,77 @@ std::string LoadBalancer::Get()
 
 void LoadBalancer::SwitchInclusion ( std::string id , bool newStateValue )
 {
-	// no error handling here for the sake of simplicity
-	_mProvider[std::stoi( id )].state = newStateValue;
+      // no error handling here for the sake of simplicity
+      _mProvider[std::stoi( id )].state = newStateValue;
 }
 
 bool LoadBalancer::IsProviderIncluded ( std::string id )
 {
-	// no error handling here for the sake of simplicity
-	return _mProvider[std::stoi( id )].state;
+      // no error handling here for the sake of simplicity
+      return _mProvider[std::stoi( id )].state;
 }
 
 bool LoadBalancer::IsProviderValidForInvocation ( std::string id )
 {
-	auto & entry = _mProvider[std::stoi( id )];
-	return entry.state and entry.nbRequests < _maxRequestsPerProvider;
+      auto & entry = _mProvider[std::stoi( id )];
+      return entry.state and entry.nbRequests < _maxRequestsPerProvider;
 }
 
 int LoadBalancer::GetNbIncludedProviders()
 {
-	int i = 0;
+      int i = 0;
 
-	for ( auto & entry : _mProvider )
-	{
-		if ( IsProviderIncluded ( entry.second.provider->Get() ) )
-		{
-			i++;
-		}
-	}
-	return i;
+      for ( auto & entry : _mProvider )
+      {
+            if ( IsProviderIncluded ( entry.second.provider->Get() ) )
+            {
+                  i++;
+            }
+      }
+      return i;
 }
 
 int LoadBalancer::GetNbRunningRequests()
 {
-	int i = 0;
+      int i = 0;
 
-	for ( auto & entry : _mProvider )
-	{
-		if ( IsProviderIncluded ( entry.second.provider->Get() ) )
-		{
-			i += entry.second.nbRequests;
-		}
-	}
-	return i;
+      for ( auto & entry : _mProvider )
+      {
+            if ( IsProviderIncluded ( entry.second.provider->Get() ) )
+            {
+                  i += entry.second.nbRequests;
+            }
+      }
+      return i;
 }
 
 void LoadBalancer::Check ( )
 {
-	_runCheckId++;
+      _runCheckId++;
 
-	for ( auto & entry : _mProvider )
-	{
-		if ( not entry.second.provider->Check() )
-		{
-			// provider is NOT alive
-   			SwitchInclusion ( entry.second.provider->Get() , false );
-			entry.second.runCheckId = 0;
-		}
-		else
-		{
-			// provider is alive
-			if ( not IsProviderIncluded ( entry.second.provider->Get() ) )
-			{
-				if ( _runCheckId == entry.second.runCheckId + 1 )
-				{
-					SwitchInclusion ( entry.second.provider->Get() , true );
-					entry.second.runCheckId = 0;
+      for ( auto & entry : _mProvider )
+      {
+            if ( not entry.second.provider->Check() )
+            {
+                  // provider is NOT alive
+                     SwitchInclusion ( entry.second.provider->Get() , false );
+                  entry.second.runCheckId = 0;
+            }
+            else
+            {
+                  // provider is alive
+                  if ( not IsProviderIncluded ( entry.second.provider->Get() ) )
+                  {
+                        if ( _runCheckId == entry.second.runCheckId + 1 )
+                        {
+                              SwitchInclusion ( entry.second.provider->Get() , true );
+                              entry.second.runCheckId = 0;
 
-				}
-			}
-			entry.second.runCheckId = _runCheckId;
-		}
-	}
+                        }
+                  }
+                  entry.second.runCheckId = _runCheckId;
+            }
+      }
 }
 
 }

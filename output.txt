@@ -1,0 +1,217 @@
+Starting the load balancer with a maximum capacity of 10 providers and 10 requests per provider
+Step 2 : Registering a list of 10 providers to the load balancer...
+         --> successfully added provider id 1
+         --> successfully added provider id 2
+         --> successfully added provider id 3
+         --> successfully added provider id 4
+         --> successfully added provider id 5
+         --> successfully added provider id 6
+         --> successfully added provider id 7
+         --> successfully added provider id 8
+         --> successfully added provider id 9
+         --> successfully added provider id 10
+Step 2 : Provider 10 already registered
+         --> Error: provider id 10 is already registered
+
+Step 2 : Maximum number of providers reached
+         --> Error: maximum number of providers reached (10)
+
+Step 3 : Random invocation (20) times
+1         --> Retrieved provider id 3
+2         --> Retrieved provider id 9
+3         --> Retrieved provider id 7
+4         --> Retrieved provider id 8
+5         --> Retrieved provider id 9
+6         --> Retrieved provider id 3
+7         --> Retrieved provider id 10
+8         --> Retrieved provider id 10
+9         --> Retrieved provider id 2
+10         --> Retrieved provider id 8
+11         --> Retrieved provider id 9
+12         --> Retrieved provider id 10
+13         --> Retrieved provider id 6
+14         --> Retrieved provider id 2
+15         --> Retrieved provider id 8
+16         --> Retrieved provider id 4
+17         --> Retrieved provider id 1
+18         --> Retrieved provider id 2
+19         --> Retrieved provider id 4
+20         --> Retrieved provider id 7
+Step 4 : Round-Robin invocation (20) times
+1         --> Retrieved provider id 1
+2         --> Retrieved provider id 2
+3         --> Retrieved provider id 3
+4         --> Retrieved provider id 4
+5         --> Retrieved provider id 5
+6         --> Retrieved provider id 6
+7         --> Retrieved provider id 7
+8         --> Retrieved provider id 8
+9         --> Retrieved provider id 9
+10         --> Retrieved provider id 10
+11         --> Retrieved provider id 1
+12         --> Retrieved provider id 2
+13         --> Retrieved provider id 3
+14         --> Retrieved provider id 4
+15         --> Retrieved provider id 5
+16         --> Retrieved provider id 6
+17         --> Retrieved provider id 7
+18         --> Retrieved provider id 8
+19         --> Retrieved provider id 9
+20         --> Retrieved provider id 10
+Step 5 : Node exclusion-inclusion
+Step 5 : Displaying default state (expected value = 1(ON))
+         --> Retrieved provider id 1 with state 1
+         --> Retrieved provider id 2 with state 1
+         --> Retrieved provider id 3 with state 1
+         --> Retrieved provider id 4 with state 1
+         --> Retrieved provider id 5 with state 1
+         --> Retrieved provider id 6 with state 1
+         --> Retrieved provider id 7 with state 1
+         --> Retrieved provider id 8 with state 1
+         --> Retrieved provider id 9 with state 1
+         --> Retrieved provider id 10 with state 1
+Step 5 : Displaying current state (expected value = 0(OFF))
+         --> Retrieved provider id 1 with state 0
+         --> Retrieved provider id 2 with state 0
+         --> Retrieved provider id 3 with state 0
+         --> Retrieved provider id 4 with state 0
+         --> Retrieved provider id 5 with state 0
+         --> Retrieved provider id 6 with state 0
+         --> Retrieved provider id 7 with state 0
+         --> Retrieved provider id 8 with state 0
+         --> Retrieved provider id 9 with state 0
+         --> Retrieved provider id 10 with state 0
+Step 5 : All providers are disconnected
+         --> Error: all providers are disconnected
+
+Step 5 : Activating only the last provider in the list (10)
+         --> RANDOM retrieved provider id 10
+         --> ROUND_ROBIN retrieved provider id 10
+Step 7 : heartbeat check
+Step 7 : disconnecting all providers
+Step 7 : check()
+Step 7 : counting included providers, expected result is 0
+         --> Found 0 included provider(s)
+Step 7 : reconnecting all providers
+Step 7 : check()
+Step 7 : counting included providers, expected result is 0
+         --> Found 0 included provider(s)
+Step 7 : check()
+Step 7 : counting included providers, expected result is 10
+         --> Found 10 included provider(s)
+Step 8 : Cluster capacity limit reached
+Step 8 : Create a load balancer with 10 providers
+         --> successfully added provider id 12
+         --> successfully added provider id 13
+         --> successfully added provider id 14
+         --> successfully added provider id 15
+         --> successfully added provider id 16
+         --> successfully added provider id 17
+         --> successfully added provider id 18
+         --> successfully added provider id 19
+         --> successfully added provider id 20
+         --> successfully added provider id 21
+Step 8 : Call Get() until exhaustion
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+         --> Error: cluster capacity limit reached
+
+Successful completion
