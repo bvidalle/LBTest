@@ -19,8 +19,8 @@ public:
     } InvocationMethodType;
 
     LoadBalancer(int maxAllowedProviders,
-    		     int maxRequestsPerProvider,
-    			 InvocationMethodType method = RANDOM);
+                 int maxRequestsPerProvider,
+                 InvocationMethodType method = RANDOM);
 
     LoadBalancer(LoadBalancer const&) = default;
 
@@ -52,8 +52,8 @@ private:
     typedef struct {
         std::shared_ptr<test::Provider> provider;
         bool                            state;
-		int                             runCheckId;
-		int                             nbRequests;
+        int                             runCheckId;
+        int                             nbRequests;
     } ProviderStructure;
 
     typedef std::map<int, ProviderStructure> MapProviderT;
@@ -71,7 +71,7 @@ private:
     MapProviderT::iterator            _itRoundRobin;
 
     // Used to control two consecutive successful check() on a provider
-    int								  _runCheckId;
+    int                                  _runCheckId;
 
 };
 

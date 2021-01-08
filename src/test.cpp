@@ -16,7 +16,7 @@ int main()
 {
 
     // Step 1
-	std::vector<std::shared_ptr<test::Provider> > vProvider;
+    std::vector<std::shared_ptr<test::Provider> > vProvider;
 
     std::cout << "Starting the load balancer with a maximum capacity of "
             << maxAllowedProviders << " providers and " << maxRequestsPerProvider << " requests per provider" << std::endl;
@@ -38,7 +38,7 @@ int main()
     }
     catch ( const std::string & e )
     {
-    	std::cout << "         --> " << e << std::endl;
+        std::cout << "         --> " << e << std::endl;
     }
 
     std::cout << "Step 2 : Maximum number of providers reached" << std::endl;
@@ -48,7 +48,7 @@ int main()
     }
     catch ( const std::string & e )
     {
-    	std::cout << "         --> " << e << std::endl;
+        std::cout << "         --> " << e << std::endl;
     }
 
     // Step 3
@@ -77,17 +77,17 @@ int main()
     std::cout << "Step 5 : Displaying default state (expected value = 1(ON))" << std::endl;
     for ( int i = 1; i <= maxAllowedProviders; i++ )
     {
-    	auto id = lb.Get();
+        auto id = lb.Get();
         std::cout << "         --> Retrieved provider id " << id << " with state " <<
-        		   lb.IsProviderIncluded(id) << std::endl;
+                   lb.IsProviderIncluded(id) << std::endl;
     }
     std::cout << "Step 5 : Displaying current state (expected value = 0(OFF))" << std::endl;
     for ( int i = 1; i <= maxAllowedProviders; i++ )
     {
-    	auto id = lb.Get();
-    	lb.SwitchInclusion(id,false);
+        auto id = lb.Get();
+        lb.SwitchInclusion(id,false);
         std::cout << "         --> Retrieved provider id " << id << " with state " <<
-        		   lb.IsProviderIncluded(id) << std::endl;
+                   lb.IsProviderIncluded(id) << std::endl;
     }
 
     std::cout << "Step 5 : All providers are disconnected" << std::endl;
@@ -97,7 +97,7 @@ int main()
     }
     catch ( const std::string & e )
     {
-    	std::cout << "         --> " << e << std::endl;
+        std::cout << "         --> " << e << std::endl;
     }
 
     std::cout << "Step 5 : Activating only the last provider in the list (" << vProvider.back()->Get() << ")" <<  std::endl;;
@@ -114,7 +114,7 @@ int main()
     std::cout << "Step 7 : disconnecting all providers" << std::endl;
     for ( auto provider : vProvider )
     {
-    	provider->SetState(false);
+        provider->SetState(false);
     }
     std::cout << "Step 7 : check()" << std::endl;
     lb.Check();
@@ -123,7 +123,7 @@ int main()
     std::cout << "Step 7 : reconnecting all providers" << std::endl;
     for ( auto provider : vProvider )
     {
-    	provider->SetState(true);
+        provider->SetState(true);
     }
     std::cout << "Step 7 : check()" << std::endl;
     lb.Check();
@@ -149,14 +149,14 @@ int main()
     std::cout << "Step 8 : Call Get() until exhaustion" << std::endl;
     try
     {
-    	while ( true )
-    	{
+        while ( true )
+        {
             std::cout << lb2.Get() << std::endl;
-    	}
+        }
     }
     catch ( const std::string & e )
     {
-    	std::cout << "         --> " << e << std::endl;
+        std::cout << "         --> " << e << std::endl;
     }
 
     std::cout << "Successful completion" << std::endl;
